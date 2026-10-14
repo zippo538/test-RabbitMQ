@@ -13,7 +13,7 @@ public class RabbitMQPersistentConnection(ConnectionFactory connectionFactory) :
     private readonly object _lock = new();
     private bool _disposed;
 
-    public RabbitMQPersistentConnection() : this(new ConnectionFactory{ HostName = "locathost" }) {}
+    public RabbitMQPersistentConnection() : this(new ConnectionFactory{ HostName = "localhost" }) {}
     public void Dispose()
     {
         if (_disposed) return;

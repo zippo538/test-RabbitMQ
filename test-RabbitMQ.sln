@@ -1,5 +1,4 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test-RabbitMQ.publisher", "test-RabbitMQ.publisher\test-RabbitMQ.publisher.csproj", "{EBC890D6-80CC-4662-9F3C-90C4A3B0C844}"
 EndProject
 Global

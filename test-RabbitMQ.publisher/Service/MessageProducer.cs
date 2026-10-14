@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using System.Text.Json;
 using RabbitMQ.Client;
@@ -13,10 +14,21 @@ public class MessageProducer(IRabbitMqPersitentConnection connection) : IMessage
     public async Task SendMessageAsync<T>(T message, string queueName)
     {
         await using var channel = await _connection.CreateChannelAsync();
-        await channel.QueueDeclareAsync(queue: queueName, durable: true, exclusive: false, autoDelete: false);
+
+        IDictionary<string, object?> arguments = new Dictionary<string, object?>
+        {
+            { "x-queue-type", "quorum" }
+        };
+        await channel.QueueDeclareAsync(
+            queue: queueName, 
+            durable: true, 
+            exclusive: false, 
+            autoDelete: false,
+            arguments : arguments
+            );
         
         var jsonString = JsonSerializer.Serialize(message);
         var body = Encoding.UTF8.GetBytes(jsonString);
-        await channel.BasicPublishAsync(exchange: "", routingKey: queueName, body: body);
+        await channel.BasicPublishAsync(exchange: string.Empty, routingKey: queueName, body: body);
     }
 }
